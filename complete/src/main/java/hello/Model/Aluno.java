@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hello;
+package hello.Model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,6 +24,7 @@ public class Aluno implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id_aluno")
     private Integer idAluno;
     private String curso;
     private String email;
