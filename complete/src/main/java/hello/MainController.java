@@ -63,4 +63,10 @@ public class MainController {
     Iterable<Disciplinas> getAllDisciplinas(){
         return disciplinasRepository.findAll();
     }
+    
+    @GetMapping(path = "/sala")
+    public @ResponseBody
+    Iterable<Disciplinas> getSalaDisciplina(){
+        return disciplinasRepository.findAllAtivas("1");
+    }
 }

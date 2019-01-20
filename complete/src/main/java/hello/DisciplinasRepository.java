@@ -6,12 +6,20 @@
 package hello;
 
 import hello.Model.Disciplinas;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Ismae
  */
+//Essa parte tá ok
+@Repository
 public interface DisciplinasRepository extends JpaRepository<Disciplinas, Integer>{
+    @Query(value= "SELECT * FROM disciplinas WHERE idmateria = ?1", nativeQuery = true)
+    List<Disciplinas> findAllAtivas(String idMateria);
+    
     
 }
