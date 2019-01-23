@@ -6,45 +6,53 @@
 package hello.Model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Ismae
  */
-@Entity(name="aluno")
+@Entity
 @Table(name = "aluno")
 public class Aluno implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name="idAluno")
-    protected Integer idAluno;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected AlunoPK alunoPK;
     @Column(name = "Matricula")
     private String matricula;
     @Column(name = "Senha")
     private String senha;
-    @Column(name = "FKCurso")
-    private Integer curso;
 
     public Aluno() {
     }
 
-    public Integer getIdAluno() {
-        return idAluno;
+    public Aluno(AlunoPK alunoPK) {
+        this.alunoPK = alunoPK;
     }
 
-    public void setIdAluno(Integer idAluno) {
-        this.idAluno = idAluno;
+    public Aluno(int fKCurso, int idAluno) {
+        this.alunoPK = new AlunoPK(fKCurso, idAluno);
     }
 
-   
+    public AlunoPK getAlunoPK() {
+        return alunoPK;
+    }
+
+    public void setAlunoPK(AlunoPK alunoPK) {
+        this.alunoPK = alunoPK;
+    }
 
     public String getMatricula() {
         return matricula;
@@ -62,18 +70,10 @@ public class Aluno implements Serializable {
         this.senha = senha;
     }
 
-    public Integer getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Integer curso) {
-        this.curso = curso;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idAluno != null ? idAluno.hashCode() : 0);
+        hash += (alunoPK != null ? alunoPK.hashCode() : 0);
         return hash;
     }
 
@@ -84,7 +84,7 @@ public class Aluno implements Serializable {
             return false;
         }
         Aluno other = (Aluno) object;
-        if ((this.idAluno == null && other.idAluno != null) || (this.idAluno != null && !this.idAluno.equals(other.idAluno))) {
+        if ((this.alunoPK == null && other.alunoPK != null) || (this.alunoPK != null && !this.alunoPK.equals(other.alunoPK))) {
             return false;
         }
         return true;
@@ -92,7 +92,7 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "hello.Model.Aluno[ alunoPK=" + idAluno + " ]";
+        return "hello.Model.Aluno[ alunoPK=" + alunoPK + " ]";
     }
     
 }

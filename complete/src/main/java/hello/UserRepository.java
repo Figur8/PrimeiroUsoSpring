@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 // CRUD refers Create, Read, Update, Delete
 @Repository
 public interface UserRepository extends CrudRepository<Aluno, Integer> {
-//    @Query(value="SELECT aluno FROM aluno WHERE matricula = ?1")
-//    List<Aluno> findBy(String id);
+   @Query(value="SELECT * FROM aluno a  INNER JOIN curso c ON a.matricula = ?1",nativeQuery = true)
+   List<Aluno> findMatricula(String matricula);
     
 }

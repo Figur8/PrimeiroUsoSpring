@@ -28,13 +28,24 @@ public class MainController {
     private DisciplinasRepository disciplinasRepository;
     
     
+    Aluno aluno = new Aluno();
     
-    
-    @GetMapping(path = "/all")
+     @GetMapping(path = "/nomeCurso")
     public @ResponseBody
-    Iterable<Aluno> getAllDisciplinases() {
+    List<Object> getAllNomeCurso(@RequestParam String matricula) {
         // This returns a JSON or XML with the users
-        return userRepository.findAll();
+        aluno.setMatricula(matricula);
+        List<Object> cursos = cursoRepository.findNomeCurso(matricula);
+        return cursos;
+        //return cursoRepository.findNomeCurso(aluno.getMatricula());
+    }    
+    
+    @GetMapping(path = "/aluno")
+    public @ResponseBody
+    Iterable<Aluno> getAllAlunos(@RequestParam String matricula) {
+        // This returns a JSON or XML with the users
+        aluno.setMatricula(matricula);
+        return userRepository.findMatricula(aluno.getMatricula());
     }    
     
     @GetMapping(path = "/curso")
@@ -55,12 +66,10 @@ public class MainController {
         return disciplinasRepository.findAllAtivas(aluno.getMatricula());
     }
     
-    Aluno aluno;
     
     @GetMapping(path= "/teste")
     public @ResponseBody
     Iterable<Disciplinas> reconhecer(@RequestParam String matricula){
-        Aluno aluno = new Aluno();
         aluno.setMatricula(matricula);
         return disciplinasRepository.findAllAtivas(aluno.getMatricula());
     }
