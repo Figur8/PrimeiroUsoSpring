@@ -6,38 +6,34 @@
 package hello.Model;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Ismae
  */
-//Lembrar de sempre usar a porra do asterixo
-@CrossOrigin("*")
-@Entity
+@Entity(name="aluno")
+@Table(name = "aluno")
 public class Aluno implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "id_aluno")
-    private Integer idAluno;
-    private String curso;
-    private String email;
-    private String nome;
-    private String semestre;
-    private String telefone;
-    private String turno;
+    @Column(name="idAluno")
+    protected Integer idAluno;
+    @Column(name = "Matricula")
+    private String matricula;
+    @Column(name = "Senha")
+    private String senha;
+    @Column(name = "FKCurso")
+    private Integer curso;
 
     public Aluno() {
-    }
-
-    public Aluno(Integer idAluno) {
-        this.idAluno = idAluno;
     }
 
     public Integer getIdAluno() {
@@ -48,54 +44,55 @@ public class Aluno implements Serializable {
         this.idAluno = idAluno;
     }
 
-    public String getCurso() {
+   
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public Integer getCurso() {
         return curso;
     }
 
-    public void setCurso(String curso) {
+    public void setCurso(Integer curso) {
         this.curso = curso;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idAluno != null ? idAluno.hashCode() : 0);
+        return hash;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Aluno)) {
+            return false;
+        }
+        Aluno other = (Aluno) object;
+        if ((this.idAluno == null && other.idAluno != null) || (this.idAluno != null && !this.idAluno.equals(other.idAluno))) {
+            return false;
+        }
+        return true;
     }
 
-    public String getNome() {
-        return nome;
+    @Override
+    public String toString() {
+        return "hello.Model.Aluno[ alunoPK=" + idAluno + " ]";
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(String semestre) {
-        this.semestre = semestre;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getTurno() {
-        return turno;
-    }
-
-    public void setTurno(String turno) {
-        this.turno = turno;
-    }
-
-    
     
 }

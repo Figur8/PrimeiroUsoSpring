@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import hello.Model.Curso;
+import java.util.List;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController    // This means that this class is a Controller
@@ -26,25 +27,9 @@ public class MainController {
     @Autowired
     private DisciplinasRepository disciplinasRepository;
     
-    @CrossOrigin
-    @GetMapping(path = "/add") // Map ONLY GET Requests
-    public @ResponseBody
-    String addNewUser(@RequestParam String curso,
-            @RequestParam String email,
-            @RequestParam String nome,
-            @RequestParam String semestre,
-            @RequestParam String telefone,
-            @RequestParam String turno) {
-        Aluno aluno = new Aluno();
-        aluno.setCurso(curso);
-        aluno.setEmail(email);
-        aluno.setNome(nome);
-        aluno.setSemestre(semestre);
-        aluno.setTelefone(telefone);
-        aluno.setTurno(turno);
-        return "saved";
-    }
-
+    
+    
+    
     @GetMapping(path = "/all")
     public @ResponseBody
     Iterable<Aluno> getAllDisciplinases() {
@@ -67,6 +52,41 @@ public class MainController {
     @GetMapping(path = "/sala")
     public @ResponseBody
     Iterable<Disciplinas> getSalaDisciplina(){
-        return disciplinasRepository.findAllAtivas("1");
+        return disciplinasRepository.findAllAtivas(aluno.getMatricula());
     }
+    
+    Aluno aluno;
+    
+    @GetMapping(path= "/teste")
+    public @ResponseBody
+    Iterable<Disciplinas> reconhecer(@RequestParam String matricula){
+        Aluno aluno = new Aluno();
+        aluno.setMatricula(matricula);
+        return disciplinasRepository.findAllAtivas(aluno.getMatricula());
+    }
+//    @CrossOrigin
+//    @GetMapping(path = "/add") // Map ONLY GET Requests
+//    public @ResponseBody
+//    String addNewUser(@RequestParam String curso,
+//            @RequestParam String email,
+//            @RequestParam String nome,
+//            @RequestParam String semestre,
+//            @RequestParam String telefone,
+//            @RequestParam String turno) {
+//        Aluno aluno = new Aluno();
+//        aluno.setCurso(curso);
+//        aluno.setEmail(email);
+//        aluno.setNome(nome);
+//        aluno.setSemestre(semestre);
+//        aluno.setTelefone(telefone);
+//        aluno.setTurno(turno);
+//        return "saved";
+//    }
+
+//    
+//    @GetMapping(path = "/AlunoMatricula")
+//    public @ResponseBody
+//    List<Aluno> getAlunoByMatricula(){
+//        return userRepository.findBy("17130210");
+//    }
 }

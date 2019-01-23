@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 //Essa parte tá ok
 @Repository
 public interface DisciplinasRepository extends JpaRepository<Disciplinas, Integer>{
-    @Query(value= "SELECT * FROM disciplinas WHERE idmateria = ?1", nativeQuery = true)
+    @Query(value= "SELECT * FROM disciplinas WHERE idmateria = (SELECT curso.idCurso FROM curso INNER JOIN aluno on curso.idcurso = ?1)", nativeQuery = true)
     List<Disciplinas> findAllAtivas(String idMateria);
     
     
